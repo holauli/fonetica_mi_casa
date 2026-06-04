@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏠 Mi Casa Tour — Workbook A1.2 v2.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,500;0,700;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream:#FAF6F0;--terracotta:#C8694A;--terra-light:#E8916F;--terra-pale:#F5DDD3;
+  --sage:#7A9E7E;--sage-light:#B8D4BA;--sage-pale:#E8F3E9;
+  --ochre:#D4A843;--ochre-pale:#FBF0D3;
+  --navy:#2C3E50;--ink:#1A1A2E;--muted:#8A8A9A;--white:#FFFFFF;
+  --gold:#FFD700;--purple:#7C5CBF;--purple-pale:#F0EBF8;
+  --radius:18px;--shadow:0 4px 24px rgba(44,62,80,0.08);--shadow-lg:0 12px 48px rgba(44,62,80,0.14);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--cream);font-family:'DM Sans',sans-serif;color:var(--ink);font-size:16px;line-height:1.65;}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#C8694A 0%,#8B3A1F 100%);color:white;padding:56px 32px 72px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(255,255,255,0.08) 0%,transparent 60%);}
+.hero-emoji{font-size:56px;display:block;margin-bottom:12px;}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(2rem,5vw,3rem);font-weight:700;letter-spacing:-1px;margin-bottom:10px;}
+.hero-sub{font-size:1rem;opacity:.9;max-width:540px;margin:0 auto 20px;}
+.badge-row{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.badge{display:inline-block;background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);border-radius:40px;padding:5px 16px;font-size:.78rem;letter-spacing:1px;text-transform:uppercase;font-weight:600;}
+
+/* SCORE BAR */
+.score-bar{background:var(--navy);color:white;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;position:sticky;top:0;z-index:100;}
+.score-left{display:flex;align-items:center;gap:16px;}
+.score-num{font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700;color:var(--gold);}
+.score-label{font-size:.78rem;opacity:.7;text-transform:uppercase;letter-spacing:1px;}
+.level-badge{background:var(--gold);color:var(--navy);border-radius:20px;padding:5px 14px;font-size:.8rem;font-weight:700;}
+
+/* CONTAINER */
+.container{max-width:880px;margin:0 auto;padding:0 20px 80px;}
+
+/* SECTION */
+.section{margin-top:40px;background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+.section-header{padding:24px 32px 18px;border-bottom:1px solid rgba(0,0,0,0.05);display:flex;align-items:center;gap:14px;}
+.section-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.icon-terra{background:var(--terra-pale);}
+.icon-sage{background:var(--sage-pale);}
+.icon-ochre{background:var(--ochre-pale);}
+.icon-navy{background:#E8EEF5;}
+.icon-purple{background:var(--purple-pale);}
+.icon-dark{background:#1a1a2e;font-size:18px;}
+.section-title{font-family:'Fraunces',serif;font-size:1.35rem;font-weight:700;color:var(--ink);}
+.section-num{font-size:.73rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-weight:600;}
+.points-tag{margin-left:auto;background:linear-gradient(135deg,var(--ochre),#E8B94A);color:white;border-radius:20px;padding:4px 12px;font-size:.8rem;font-weight:700;white-space:nowrap;}
+.section-body{padding:26px 32px;}
+
+/* ORAL TASK BOX */
+.oral-task{background:linear-gradient(135deg,var(--terra-pale),#FDF0E8);border-radius:14px;padding:22px 24px;margin:16px 0;border-left:4px solid var(--terracotta);}
+.oral-task .ot-icon{font-size:2rem;margin-bottom:8px;}
+.oral-task h4{font-family:'Fraunces',serif;font-size:1rem;color:var(--terracotta);margin-bottom:6px;}
+.oral-task p{font-size:.9rem;color:#444;line-height:1.6;}
+.oral-task .ot-hint{font-size:.8rem;background:rgba(200,105,74,.1);border-radius:8px;padding:6px 10px;margin-top:10px;color:var(--terracotta);font-weight:500;}
+
+/* VIDEO BLOCK */
+.video-block{background:linear-gradient(135deg,#2C3E50,#1A1A2E);border-radius:14px;padding:28px;text-align:center;color:white;margin-bottom:20px;}
+.video-block h3{font-family:'Fraunces',serif;font-size:1.15rem;margin-bottom:6px;}
+.video-link{display:inline-flex;align-items:center;gap:10px;background:#FF0000;color:white;text-decoration:none;border-radius:40px;padding:11px 26px;font-weight:600;margin-top:14px;transition:opacity .2s;}
+.video-link:hover{opacity:.85;}
+
+/* BINGO */
+.bingo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0;}
+.bingo-cell{background:var(--cream);border:2px solid #E5E5E8;border-radius:10px;padding:10px 6px;text-align:center;cursor:pointer;transition:all .2s;font-size:.82rem;font-weight:500;color:var(--ink);line-height:1.3;}
+.bingo-cell:hover{border-color:var(--terracotta);}
+.bingo-cell.hit{background:var(--terracotta);border-color:var(--terracotta);color:white;}
+.bingo-cell.hit .bingo-count{background:rgba(255,255,255,0.3);}
+.bingo-count{display:block;font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin-top:4px;background:rgba(0,0,0,0.06);border-radius:6px;min-height:28px;line-height:28px;}
+
+/* MULETILLAS TABLE */
+.mule-table{width:100%;border-collapse:collapse;margin:14px 0;}
+.mule-table th{background:var(--navy);color:white;padding:11px 14px;text-align:left;font-weight:500;font-size:.83rem;}
+.mule-table th:first-child{border-radius:8px 0 0 0;}
+.mule-table th:last-child{border-radius:0 8px 0 0;}
+.mule-table td{padding:10px 14px;border-bottom:1px solid #F0F0F3;font-size:.9rem;}
+.mule-table tr:nth-child(even) td{background:var(--cream);}
+.mule-counter{display:flex;align-items:center;gap:8px;}
+.counter-btn{width:28px;height:28px;border-radius:50%;border:2px solid var(--terracotta);background:white;color:var(--terracotta);font-weight:700;cursor:pointer;font-size:1rem;line-height:1;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.counter-btn:hover{background:var(--terracotta);color:white;}
+.counter-val{font-family:'Fraunces',serif;font-size:1.1rem;font-weight:700;color:var(--terracotta);min-width:24px;text-align:center;}
+
+/* RHYTHM BLOCK */
+.rhythm-line{background:var(--navy);border-radius:12px;padding:18px 22px;margin:10px 0;color:white;font-family:monospace;font-size:1rem;line-height:1.8;letter-spacing:.5px;}
+.rhythm-line .stressed{font-size:1.15em;color:var(--gold);font-weight:700;text-transform:uppercase;}
+.rhythm-line .unstressed{opacity:.75;font-size:.92em;}
+.rhythm-meta{font-size:.75rem;opacity:.5;margin-top:4px;font-family:'DM Sans',sans-serif;letter-spacing:1px;}
+
+/* LINKING WORDS */
+.link-pair{display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:10px;padding:12px 16px;margin:8px 0;}
+.link-written{font-weight:600;color:var(--navy);min-width:120px;}
+.link-arrow{color:var(--terracotta);font-weight:700;}
+.link-spoken{font-family:monospace;font-size:1rem;color:var(--terracotta);font-weight:700;}
+.link-example{font-size:.82rem;color:var(--muted);font-style:italic;}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:14px;}
+.step{display:flex;gap:14px;align-items:flex-start;background:var(--cream);border-radius:14px;padding:16px 18px;}
+.step-num{width:34px;height:34px;background:var(--terracotta);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:.95rem;flex-shrink:0;}
+.step h4{font-weight:600;margin-bottom:4px;font-size:.93rem;}
+.step p{font-size:.87rem;color:#444;}
+
+/* FRAGMENT */
+.fragment-box{background:var(--navy);color:#E8F0FF;border-radius:12px;padding:18px 22px;font-size:.9rem;line-height:1.75;margin-bottom:18px;font-style:italic;position:relative;}
+.fragment-label{font-size:.73rem;text-transform:uppercase;letter-spacing:2px;color:var(--terra-light);margin-bottom:8px;font-style:normal;font-weight:700;}
+
+/* STAR RATING */
+.rating-row{display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:12px;padding:12px 16px;margin:8px 0;}
+.rating-label{width:130px;font-weight:500;font-size:.87rem;flex-shrink:0;}
+.stars{display:flex;gap:5px;}
+.star{width:30px;height:30px;border-radius:7px;border:2px solid #DDD;background:white;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#CCC;transition:all .15s;}
+.star.active{background:var(--ochre);border-color:var(--ochre);color:white;}
+
+/* EMOTION CARDS */
+.emotion-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:16px 0;}
+.emotion-card{background:var(--cream);border-radius:12px;padding:16px;}
+.emotion-card .em-icon{font-size:1.8rem;margin-bottom:8px;}
+.emotion-card h4{font-size:.82rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:8px;font-weight:600;}
+.emotion-card textarea{width:100%;border:1.5px solid #E5E5E8;border-radius:8px;padding:8px;font-family:'DM Sans',sans-serif;font-size:.85rem;min-height:70px;resize:none;background:white;}
+.emotion-card textarea:focus{outline:none;border-color:var(--terracotta);}
+
+/* PHRASE CHIPS */
+.phrase-chip{background:var(--sage-pale);border-radius:10px;padding:11px 15px;display:flex;align-items:flex-start;gap:10px;font-size:.9rem;margin:6px 0;}
+.phrase-text{font-style:italic;color:var(--navy);font-weight:500;}
+.phrase-note{font-size:.78rem;color:var(--muted);margin-top:2px;}
+
+/* CHECKLIST */
+.check-item{display:flex;align-items:center;gap:12px;background:var(--cream);border-radius:10px;padding:12px 15px;cursor:pointer;transition:background .2s;margin:6px 0;}
+.check-item:hover{background:var(--sage-pale);}
+.check-box{width:22px;height:22px;border:2px solid var(--sage);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;font-size:11px;color:white;}
+.check-item.checked .check-box{background:var(--sage);}
+.check-text{font-size:.9rem;}
+
+/* PROGRESS BUTTONS */
+.progress-row{background:var(--cream);border-radius:12px;padding:15px 18px;margin:10px 0;}
+.progress-label{font-weight:600;font-size:.88rem;margin-bottom:10px;}
+.progress-scale{display:flex;gap:5px;flex-wrap:wrap;}
+.prog-btn{width:34px;height:34px;border-radius:8px;border:2px solid #DDD;background:white;cursor:pointer;font-weight:700;font-size:.82rem;color:#CCC;transition:all .15s;}
+.prog-btn.active{background:var(--terracotta);border-color:var(--terracotta);color:white;}
+
+/* TOUR CARDS */
+.tour-structure{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-bottom:20px;}
+.tour-card{background:linear-gradient(135deg,var(--terracotta),var(--terra-light));color:white;border-radius:14px;padding:16px;}
+.tour-card .tc-icon{font-size:1.5rem;margin-bottom:8px;}
+.tour-card h4{font-family:'Fraunces',serif;font-size:.95rem;margin-bottom:4px;}
+.tour-card p{font-size:.78rem;opacity:.9;}
+
+/* TIKTOK MODES */
+.tiktok-modes{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;}
+.tiktok-mode{border-radius:14px;padding:18px;text-align:center;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.tiktok-mode.influencer{background:linear-gradient(135deg,#E91E8C,#FF6B9D);color:white;}
+.tiktok-mode.inmobiliaria{background:linear-gradient(135deg,var(--navy),#405C7A);color:white;}
+.tiktok-mode.youtuber{background:linear-gradient(135deg,#FF0000,#FF6B35);color:white;}
+.tiktok-mode:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.15);}
+.tiktok-mode.selected{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.2);outline:3px solid white;}
+.tiktok-mode .mode-icon{font-size:2rem;margin-bottom:8px;}
+.tiktok-mode h4{font-family:'Fraunces',serif;font-size:1rem;margin-bottom:4px;}
+.tiktok-mode p{font-size:.78rem;opacity:.85;}
+
+/* SPEED CHALLENGE */
+.speed-box{background:linear-gradient(135deg,var(--purple-pale),#E8E4F5);border-radius:14px;padding:22px;text-align:center;}
+.speed-timer{font-family:'Fraunces',serif;font-size:3.5rem;font-weight:700;color:var(--purple);line-height:1;}
+.speed-btn{background:var(--purple);color:white;border:none;border-radius:40px;padding:12px 32px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;margin-top:14px;transition:opacity .2s;}
+.speed-btn:hover{opacity:.85;}
+.speed-targets{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0;}
+.speed-target{background:white;border:2px solid var(--purple);border-radius:20px;padding:4px 14px;font-size:.85rem;color:var(--purple);font-weight:600;}
+
+/* LEVELS BANNER */
+.levels-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:20px 0;}
+.level-card{border-radius:12px;padding:14px 18px;text-align:center;flex:1;min-width:120px;max-width:150px;}
+.lc-bronze{background:linear-gradient(135deg,#CD7F32,#E8A75A);}
+.lc-silver{background:linear-gradient(135deg,#808080,#C0C0C0);}
+.lc-gold{background:linear-gradient(135deg,#D4A843,#FFD700);}
+.lc-crown{background:linear-gradient(135deg,#C8694A,#8B1A1A);}
+.level-card{color:white;}
+.level-card .lc-icon{font-size:1.8rem;margin-bottom:6px;}
+.level-card h4{font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.5px;}
+.level-card .lc-pts{font-size:.73rem;opacity:.8;margin-top:2px;}
+
+/* MISC */
+.tip-box{background:var(--ochre-pale);border-left:4px solid var(--ochre);border-radius:0 10px 10px 0;padding:12px 16px;font-size:.88rem;margin:14px 0;}
+.tip-box strong{color:var(--ochre);}
+.answer-area{width:100%;border:2px solid #E5E5E8;border-radius:10px;padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:.93rem;color:var(--ink);background:var(--cream);resize:vertical;transition:border-color .2s;margin-top:6px;min-height:75px;}
+.answer-area:focus{outline:none;border-color:var(--terracotta);}
+label.field-label{display:block;font-size:.8rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:600;margin:16px 0 6px;}
+.divider{border:none;height:1px;background:linear-gradient(to right,transparent,#E0E0E8,transparent);margin:20px 0;}
+.word-bank-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.word-chip{background:white;border:1.5px solid var(--ochre);border-radius:20px;padding:4px 13px;font-size:.87rem;color:var(--ink);cursor:pointer;transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ochre);color:white;}
+.word-chip.known{background:var(--sage);border-color:var(--sage);color:white;}
+.word-chip.new-word{background:var(--terracotta);border-color:var(--terracotta);color:white;}
+.actor-scale{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+.styled-table{width:100%;border-collapse:collapse;font-size:.9rem;margin:14px 0;}
+.styled-table th{background:var(--terracotta);color:white;padding:11px 14px;text-align:left;font-weight:500;font-size:.82rem;}
+.styled-table th:first-child{border-radius:8px 0 0 0;}
+.styled-table th:last-child{border-radius:0 8px 0 0;}
+.styled-table td{padding:9px 14px;border-bottom:1px solid #F0F0F3;vertical-align:top;}
+.styled-table tr:last-child td{border-bottom:none;}
+.styled-table tr:nth-child(even) td{background:var(--cream);}
+.styled-table input,.styled-table select,.styled-table textarea{width:100%;border:1.5px solid #E5E5E8;border-radius:7px;padding:7px 9px;font-family:'DM Sans',sans-serif;font-size:.85rem;background:white;color:var(--ink);}
+.styled-table input:focus,.styled-table textarea:focus{outline:none;border-color:var(--terracotta);}
+.styled-table textarea{min-height:55px;resize:vertical;}
+
+@media(max-width:600px){
+  .section-header,.section-body{padding:18px;}
+  .bingo-grid{grid-template-columns:repeat(5,1fr);}
+  .tiktok-modes{grid-template-columns:1fr;}
+  .actor-scale{grid-template-columns:1fr;}
+  .levels-row .level-card{min-width:90px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-emoji">🏠</span>
+  <h1>Mi Casa, Tu Español</h1>
+  <p class="hero-sub">Workbook interactivo · Shadowing · Intondación · TikTok Challenge · Nivel A1.2</p>
+  <div class="badge-row">
+    <span class="badge">Instituto Cervantes</span>
+    <span class="badge">TikTok Method</span>
+    <span class="badge">Español auténtico</span>
+  </div>
+</div>
+
+<!-- SCORE BAR -->
+<div class="score-bar">
+  <div class="score-left">
+    <div>
+      <div class="score-label">Puntuación total</div>
+      <div class="score-num" id="totalScore">0</div>
+    </div>
+    <div class="level-badge" id="levelBadge">🥉 Explorador español</div>
+  </div>
+  <div style="font-size:.78rem;opacity:.6;text-align:right;">Completa los bloques<br>para ganar puntos ⭐</div>
+</div>
+
+<div class="container">
+
+<!-- ════════════════════════════════════
+     БЛОК 1 — ANTES DE VER EL VÍDEO
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-terra">☀️</div>
+    <div>
+      <div class="section-num">Bloque 1</div>
+      <div class="section-title">Antes de ver el vídeo</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(5,this)" title="Haz clic para sumar puntos al completar">+5 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="oral-task">
+      <div class="ot-icon">🎙️</div>
+      <h4>Tarea oral — ¡habla 2 minutos!</h4>
+      <p>Graba un audio o habla en voz alta. Describe tu casa usando solo estas palabras: <strong>hay · está · es · tengo · me gusta</strong>. No busques palabras nuevas. ¡Usa lo que ya sabes!</p>
+      <div class="ot-hint">💡 Ejemplo de inicio: "En mi casa hay tres habitaciones. El salón es grande y está..."</div>
+    </div>
+
+    <div style="background:var(--ochre-pale);border-radius:12px;padding:18px 20px;margin:16px 0;">
+      <h4 style="font-weight:600;color:var(--ochre);margin-bottom:12px;font-size:.88rem;text-transform:uppercase;letter-spacing:1px;">🗝️ Vocabulario — marca lo que conoces</h4>
+      <div class="word-bank-chips">
+        <span class="word-chip" onclick="toggleWord(this)">el pasillo</span>
+        <span class="word-chip" onclick="toggleWord(this)">el salón</span>
+        <span class="word-chip" onclick="toggleWord(this)">la cocina</span>
+        <span class="word-chip" onclick="toggleWord(this)">el baño</span>
+        <span class="word-chip" onclick="toggleWord(this)">el dormitorio</span>
+        <span class="word-chip" onclick="toggleWord(this)">el armario</span>
+        <span class="word-chip" onclick="toggleWord(this)">el sofá</span>
+        <span class="word-chip" onclick="toggleWord(this)">el balcón</span>
+        <span class="word-chip" onclick="toggleWord(this)">la estantería</span>
+        <span class="word-chip" onclick="toggleWord(this)">el frigorífico</span>
+        <span class="word-chip" onclick="toggleWord(this)">la encimera</span>
+        <span class="word-chip" onclick="toggleWord(this)">el espejo</span>
+        <span class="word-chip" onclick="toggleWord(this)">la bañera</span>
+        <span class="word-chip" onclick="toggleWord(this)">el zapatero</span>
+        <span class="word-chip" onclick="toggleWord(this)">colgante</span>
+        <span class="word-chip" onclick="toggleWord(this)">bonito/a</span>
+        <span class="word-chip" onclick="toggleWord(this)">pequeño/a</span>
+        <span class="word-chip" onclick="toggleWord(this)">súper</span>
+      </div>
+      <p style="font-size:.75rem;color:var(--muted);margin-top:10px;">🟢 1 clic = ya lo sé &nbsp;|&nbsp; 🔴 2 clics = es nuevo</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 2 — VÍDEO + BINGO + MULETILLAS
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-navy">🎬</div>
+    <div>
+      <div class="section-num">Bloque 2</div>
+      <div class="section-title">¡Mira el vídeo! — Bingo &amp; Detective</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="video-block">
+      <h3>📺 House Tour auténtico — Español castellano</h3>
+      <p style="opacity:.7;font-size:.86rem;">Primera vez: solo mira. Segunda vez: juega al Bingo.</p>
+      <a href="https://www.youtube.com/watch?v=SgOSRfvY8jg" target="_blank" class="video-link">▶ Ver en YouTube</a>
+    </div>
+
+    <!-- BINGO -->
+    <h4 style="font-family:'Fraunces',serif;font-size:1.05rem;margin-bottom:10px;">🎯 Bingo de la española — ¡haz clic cuando escuches!</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">Pon el vídeo y marca cada palabra cuando la escuches. El número se actualiza solo.</p>
+    <div class="bingo-grid" id="bingo">
+      <div class="bingo-cell" onclick="bingoClik(this)">me encanta<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">súper<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">entonces<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">pues<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">bonito<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">pequeño<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">porque<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">claro<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">Ikea<span class="bingo-count" data-count="0">0</span></div>
+      <div class="bingo-cell" onclick="bingoClik(this)">vale<span class="bingo-count" data-count="0">0</span></div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- MULETILLAS -->
+    <h4 style="font-family:'Fraunces',serif;font-size:1.05rem;margin-bottom:8px;">☕ Muletillas — el alma del español</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:12px;">Cuenta cuántas veces escuchas estas palabras de relleno. ¡Son indispensables para sonar natural!</p>
+    <table class="mule-table">
+      <thead><tr><th>Muletilla</th><th>Significa / cuando se usa</th><th>Veces escuchadas</th></tr></thead>
+      <tbody>
+        <tr><td><strong>pues</strong></td><td>bueno / entonces (pausa de pensamiento)</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+        <tr><td><strong>entonces</strong></td><td>значит / и вот</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+        <tr><td><strong>bueno</strong></td><td>ну / хорошо (переход)</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+        <tr><td><strong>vale</strong></td><td>окей / понятно</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+        <tr><td><strong>no sé</strong></td><td>ну не знаю (задумчивость)</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+        <tr><td><strong>o sea</strong></td><td>то есть (пояснение)</td><td><div class="mule-counter"><button class="counter-btn" onclick="changeCount(this,-1)">−</button><span class="counter-val">0</span><button class="counter-btn" onclick="changeCount(this,1)">+</button></div></td></tr>
+      </tbody>
+    </table>
+
+    <div class="oral-task">
+      <div class="ot-icon">🎙️</div>
+      <h4>Speed Challenge — 30 segundos</h4>
+      <p>Pulsa "Iniciar" y nombra en voz alta: 10 objetos de la casa · 5 habitaciones · 3 adjetivos. ¡Sin parar!</p>
+      <div class="speed-box" style="margin-top:12px;">
+        <div class="speed-targets">
+          <span class="speed-target">🪑 10 objetos</span>
+          <span class="speed-target">🚪 5 habitaciones</span>
+          <span class="speed-target">✨ 3 adjetivos</span>
+        </div>
+        <div class="speed-timer" id="speedTimer">30</div>
+        <br>
+        <button class="speed-btn" onclick="startSpeed()">⚡ Iniciar</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 3 — RITMO ESPAÑOL 🎵
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-ochre">🥁</div>
+    <div>
+      <div class="section-num">Bloque 3</div>
+      <div class="section-title">Ritmo español 🎵</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>¿Qué es el ritmo español?</strong> El español tiene un ritmo muy regular: cada sílaba TÓNICA (en mayúsculas) recibe más fuerza y duración. Las sílabas átonas son más cortas y rápidas. ¡Es como música!</div>
+
+    <h4 style="font-family:'Fraunces',serif;margin-bottom:12px;">🎯 Frases reales del vídeo — lee con ritmo</h4>
+    <p style="font-size:.85rem;color:var(--muted);margin-bottom:14px;">Las letras en MAYÚSCULAS y doradas son las sílabas tónicas. Léelas más fuertes y lentas. Las demás, rápidas y suaves. <strong>Repite 3 veces cada frase. ¡Aplaude el ritmo!</strong></p>
+
+    <div class="rhythm-line">
+      <div class="rhythm-meta">FRASE 1 · min 0:05</div>
+      lo pri<span class="stressed">ME</span>ro que te<span class="stressed">NE</span>mos al en<span class="stressed">TRAR</span> al <span class="stressed">PI</span>so
+    </div>
+    <div class="rhythm-line">
+      <div class="rhythm-meta">FRASE 2 · min 0:20</div>
+      <span class="stressed">SIEM</span>pre me <span class="stressed">GUS</span>ta po<span class="stressed">NER</span> za pa<span class="stressed">TE</span>ros
+    </div>
+    <div class="rhythm-line">
+      <div class="rhythm-meta">FRASE 3 · min 1:15</div>
+      es<span class="stressed">TE</span> so<span class="stressed">FÁ</span> me en<span class="stressed">CAN</span>ta por<span class="stressed">QUE</span> se <span class="stressed">SA</span>ca
+    </div>
+    <div class="rhythm-line">
+      <div class="rhythm-meta">FRASE 4 · min 2:30</div>
+      nos<span class="stressed">O</span>tros lo que <span class="stressed">HE</span>mos <span class="stressed">HE</span>cho es com<span class="stressed">PRAR</span>
+    </div>
+    <div class="rhythm-line">
+      <div class="rhythm-meta">FRASE 5 · min 4:10</div>
+      <span class="stressed">CREI</span>o que he<span class="stressed">MOS</span> de<span class="stressed">JA</span>do to<span class="stressed">DO</span> su<span class="stressed">PER</span> bo<span class="stressed">NI</span>to
+    </div>
+
+    <div class="oral-task" style="margin-top:18px;">
+      <div class="ot-icon">🥁</div>
+      <h4>Tarea — Aplaudir + Repetir</h4>
+      <p>Para cada frase: 1) lee en silencio; 2) aplaude el ritmo (solo las sílabas tónicas); 3) lee en voz alta siguiendo el ritmo. Repite 5 veces cada frase. Después, pon el vídeo y escucha — ¿coincide con tu ritmo?</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 4 — ESPAÑOL CONECTADO 🔗
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-sage">🔗</div>
+    <div>
+      <div class="section-num">Bloque 4</div>
+      <div class="section-title">Español conectado 🔗</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>El secreto de los nativos:</strong> En el habla real, las palabras se conectan y forman una sola unidad de sonido. "es el" no se pronuncia por separado — suena "esel". ¡Esto es lo que hace que el español suene fluido!</div>
+
+    <h4 style="font-family:'Fraunces',serif;margin-bottom:12px;">🎯 Conexiones reales del vídeo</h4>
+
+    <div class="link-pair">
+      <span class="link-written">es + el único</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">eselúnico</span>
+      <span class="link-example">"es el único pasillo"</span>
+    </div>
+    <div class="link-pair">
+      <span class="link-written">al + entrar</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">alentrar</span>
+      <span class="link-example">"al entrar al piso"</span>
+    </div>
+    <div class="link-pair">
+      <span class="link-written">de + Ikea</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">deIkea</span>
+      <span class="link-example">"los muebles de Ikea"</span>
+    </div>
+    <div class="link-pair">
+      <span class="link-written">no + es</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">noes</span>
+      <span class="link-example">"no es muy caro"</span>
+    </div>
+    <div class="link-pair">
+      <span class="link-written">que + es</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">quees</span>
+      <span class="link-example">"algo que es bonito"</span>
+    </div>
+    <div class="link-pair">
+      <span class="link-written">para + aprovechar</span>
+      <span class="link-arrow">→</span>
+      <span class="link-spoken">paraaprovechar</span>
+      <span class="link-example">"para aprovechar el espacio"</span>
+    </div>
+
+    <div class="oral-task" style="margin-top:16px;">
+      <div class="ot-icon">🔗</div>
+      <h4>Tarea oral — Practica la conexión</h4>
+      <p>Lee cada frase completa en voz alta 5 veces, conectando las palabras sin parar. Empieza lento, luego más rápido. Objetivo: sonar como una sola palabra larga.</p>
+      <div class="ot-hint">🔍 Busca 3 conexiones más en el vídeo y anótalas aquí abajo.</div>
+    </div>
+
+    <label class="field-label">✍️ Mis conexiones encontradas en el vídeo:</label>
+    <textarea class="answer-area" style="min-height:65px;" placeholder="ej. está + aquí → estáaquí..."></textarea>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 5 — SHADOWING CHALLENGE ⭐
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-terra">🎤</div>
+    <div>
+      <div class="section-num">Bloque 5 · ⭐ EL MÁS IMPORTANTE</div>
+      <div class="section-title">Shadowing Challenge</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(20,this)">+20 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="fragment-box">
+      <div class="fragment-label">🎯 Fragmento para shadowing · min 0:00–0:30</div>
+      <em>"Lo primero que tenemos al entrar al piso es este pasillito, es el único pasillo que hay. Si veis cómo era antes, no os lo podéis imaginar. Entonces nosotros hemos colocado esta recibida. Siempre me gusta poner zapateros en las entradas porque pienso que es una forma muy buena de aprovechar el espacio."</em>
+    </div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><h4>🎧 Escucha — ojos cerrados</h4><p>Solo escucha. No traduces. Siente el ritmo, las pausas, la melodía. Como escuchar música.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h4>🗣️ Shadowing — habla AL MISMO TIEMPO</h4><p>Pon el vídeo y habla junto con ella en tiempo real. No esperes. Imita los sonidos exactamente. El ritmo es más importante que el significado.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h4>📱 Grábate — sin el vídeo</h4><p>Ahora tú solo. Graba el mismo fragmento sin el vídeo. Habla con confianza, no importa si no es perfecto.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><h4>🔍 Compara — ¿qué es diferente?</h4><p>Escucha tu grabación y el original. ¿Ritmo? ¿Velocidad? ¿Algún sonido? Repite hasta que se parezca más.</p></div></div>
+    </div>
+
+    <hr class="divider">
+    <h4 style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:14px;">📊 Autoevaluación — después del shadowing</h4>
+    <div id="shadRatings">
+      <div class="rating-row"><span class="rating-label">🥁 Ritmo</span><div class="stars" data-g="r1"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">⚡ Velocidad</span><div class="stars" data-g="r2"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">🎵 Entonación</span><div class="stars" data-g="r3"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">😊 Confianza</span><div class="stars" data-g="r4"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 6 — ACTOR ESPAÑOL 🎭
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-purple">🎭</div>
+    <div>
+      <div class="section-num">Bloque 6</div>
+      <div class="section-title">Actor español 🎭</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(15,this)">+15 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>¿Por qué este ejercicio?</strong> Cuando "actúas" como la española, tu cerebro deja de traducir desde el ruso. Empiezas a pensar en imágenes y emociones directamente en español. ¡Es la magia del teatro!</div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><h4>🎬 Elige 10–15 segundos del vídeo</h4><p>Elige una parte donde la española expresa emoción: cuando dice "me encanta", "súper bonito", o "mira qué bien".</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h4>🔇 Desactiva el sonido</h4><p>Pon el vídeo sin sonido. Mira solo su cara, sus gestos, su cuerpo. ¿Qué emociones ves?</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h4>🎤 Eres TÚ la protagonista</h4><p>Vuelve a poner el fragmento sin sonido. Habla tú en su lugar. Inventa o recuerda sus palabras. Copia también sus gestos y expresiones.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div><h4>🔊 Compara con el original</h4><p>Pon ahora el fragmento con sonido. ¿Qué fue diferente en la emoción? ¿En la voz? ¿En los gestos?</p></div></div>
+    </div>
+
+    <hr class="divider">
+    <h4 style="font-family:'Fraunces',serif;font-size:1rem;margin-bottom:14px;">🎭 Mi autoevaluación de actor</h4>
+    <div class="actor-scale">
+      <div class="rating-row"><span class="rating-label">😊 Emoción</span><div class="stars"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">🤲 Gestos</span><div class="stars"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">🎵 Melodía</span><div class="stars"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+      <div class="rating-row"><span class="rating-label">🇪🇸 ¿Parezco española?</span><div class="stars"><div class="star" onclick="rateStar(this)">1</div><div class="star" onclick="rateStar(this)">2</div><div class="star" onclick="rateStar(this)">3</div><div class="star" onclick="rateStar(this)">4</div><div class="star" onclick="rateStar(this)">5</div></div></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 7 — DOBLADOR PROFESIONAL 🎬
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-dark">🎬</div>
+    <div>
+      <div class="section-num">Bloque 7</div>
+      <div class="section-title">Doblador profesional 🎬</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(20,this)">+20 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>¡Eres actriz de doblaje!</strong> El doblaje profesional requiere improvisar, mantener la emoción y el ritmo, y hablar con convicción. Es el ejercicio más difícil — y el más efectivo para la fluidez.</div>
+
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><h4>🔇 Vídeo sin sonido — 1 minuto</h4><p>Pon el vídeo desde el principio sin sonido. Mira la apartamento. ¿Qué ves? Memoriza los espacios.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><h4>🎤 ¡Acción! — Dobla el vídeo</h4><p>Pon el vídeo sin sonido y habla TÚ como si fueras la dueña del piso. Muestra cada habitación con tu voz. No te pares. ¡Inventa si no recuerdas!</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><h4>📱 Graba tu doblaje</h4><p>Repite el ejercicio y esta vez grábate. Mínimo 45 segundos de doblaje continuo.</p></div></div>
+    </div>
+
+    <div class="oral-task" style="margin-top:16px;">
+      <div class="ot-icon">💬</div>
+      <h4>Frases de ayuda para el doblaje</h4>
+      <p>Si te bloqueas, usa estas frases como puente:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;">
+        <div class="phrase-chip"><span>👉</span><div><div class="phrase-text">Aquí tenemos...</div><div class="phrase-note">para mostrar un lugar</div></div></div>
+        <div class="phrase-chip"><span>❤️</span><div><div class="phrase-text">Me encanta este/esta...</div><div class="phrase-note">para expresar emoción</div></div></div>
+        <div class="phrase-chip"><span>📏</span><div><div class="phrase-text">Es bastante pequeño/grande</div><div class="phrase-note">para describir tamaño</div></div></div>
+        <div class="phrase-chip"><span>🛒</span><div><div class="phrase-text">Lo compramos en Ikea</div><div class="phrase-note">para hablar de objetos</div></div></div>
+        <div class="phrase-chip"><span>🔜</span><div><div class="phrase-text">Por aquí pasamos a...</div><div class="phrase-note">para moverse</div></div></div>
+        <div class="phrase-chip"><span>💡</span><div><div class="phrase-text">Lo que más me gusta es...</div><div class="phrase-note">para destacar algo</div></div></div>
+      </div>
+    </div>
+
+    <label class="field-label">💭 ¿Qué fue lo más difícil del doblaje?</label>
+    <textarea class="answer-area" style="min-height:65px;" placeholder="Lo más difícil fue..."></textarea>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 8 — DETECTIVE DE LA EMOCIÓN 🎙️
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-sage">🔍</div>
+    <div>
+      <div class="section-num">Bloque 8</div>
+      <div class="section-title">Detective de la emoción 🎙️</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>La entonación española = música</strong> La española no solo dice las palabras — las canta. Cada emoción tiene un patrón melódico diferente. Tu tarea: detectar esos patrones.</div>
+
+    <h4 style="font-family:'Fraunces',serif;margin-bottom:14px;">🎭 Emoción Detective — busca y copia</h4>
+    <div class="emotion-grid">
+      <div class="emotion-card">
+        <div class="em-icon">😲</div>
+        <h4>Sorpresa</h4>
+        <textarea placeholder="Escribe la frase + cómo suena su voz..."></textarea>
+      </div>
+      <div class="emotion-card">
+        <div class="em-icon">😍</div>
+        <h4>Admiración / Amor</h4>
+        <textarea placeholder="Escribe la frase + cómo suena su voz..."></textarea>
+      </div>
+      <div class="emotion-card">
+        <div class="em-icon">😄</div>
+        <h4>Humor / Diversión</h4>
+        <textarea placeholder="Escribe la frase + cómo suena su voz..."></textarea>
+      </div>
+      <div class="emotion-card">
+        <div class="em-icon">🤔</div>
+        <h4>Duda / Incertidumbre</h4>
+        <textarea placeholder="Escribe la frase + cómo suena su voz..."></textarea>
+      </div>
+    </div>
+
+    <div class="oral-task">
+      <div class="ot-icon">🎵</div>
+      <h4>Tarea — imitar las emociones</h4>
+      <p>Elige una frase de cada emoción. Repítela 5 veces copiando exactamente la melodía de su voz. El objetivo no es el significado — es la música.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 9 — PRONUNCIACIÓN FOCUS 🔊
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-ochre">🔊</div>
+    <div>
+      <div class="section-num">Bloque 9</div>
+      <div class="section-title">Pronunciación Focus — Castellano auténtico</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>Castellano ≠ Latinoamérica.</strong> El acento de Madrid tiene características únicas. ¡Aprenderlas te hará sonar auténtica desde el primer día!</div>
+
+    <table class="styled-table">
+      <thead><tr><th>Sonido</th><th>El secreto castellano</th><th>Del vídeo</th><th>¿Fácil / Difícil?</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong style="font-size:1.1rem;color:var(--terracotta);">C/Z</strong></td>
+          <td>CE, CI y Z suenan como "th" inglesa suave. ¡Solo en España!</td>
+          <td><em>za<strong>pa</strong>tero, re<strong>ci</strong>bida</em></td>
+          <td><select><option>🎯 Elige</option><option>😊 Fácil</option><option>😐 Medio</option><option>😤 Difícil</option></select></td>
+        </tr>
+        <tr>
+          <td><strong style="font-size:1.1rem;color:var(--terracotta);">RR</strong></td>
+          <td>Vibración fuerte de la lengua. Toca el paladar y vibra. rrr-rrr-rrr.</td>
+          <td><em>corre<strong>de</strong>ras, ba<strong>rr</strong>a</em></td>
+          <td><select><option>🎯 Elige</option><option>😊 Fácil</option><option>😐 Medio</option><option>😤 Difícil</option></select></td>
+        </tr>
+        <tr>
+          <td><strong style="font-size:1.1rem;color:var(--terracotta);">B/V</strong></td>
+          <td>Suenan igual. Entre vocales: labios casi se tocan, muy suave.</td>
+          <td><em><strong>b</strong>año, <strong>b</strong>onito, <strong>v</strong>entana</em></td>
+          <td><select><option>🎯 Elige</option><option>😊 Fácil</option><option>😐 Medio</option><option>😤 Difícil</option></select></td>
+        </tr>
+        <tr>
+          <td><strong style="font-size:1.1rem;color:var(--terracotta);">-ITO/-ITA</strong></td>
+          <td>Diminutivo afectivo. Lo usan constantemente. Da calidez a la voz.</td>
+          <td><em>pasill<strong>ito</strong>, pequeñ<strong>ito</strong>, rincon<strong>cito</strong></em></td>
+          <td><select><option>🎯 Elige</option><option>😊 Fácil</option><option>😐 Medio</option><option>😤 Difícil</option></select></td>
+        </tr>
+        <tr>
+          <td><strong style="font-size:1.1rem;color:var(--terracotta);">J</strong></td>
+          <td>Fuerte y seca. Como una H muy aspirada del inglés. Garganta activa.</td>
+          <td><em>de<strong>j</strong>ado, pe<strong>g</strong>a</em></td>
+          <td><select><option>🎯 Elige</option><option>😊 Fácil</option><option>😐 Medio</option><option>😤 Difícil</option></select></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="oral-task">
+      <div class="ot-icon">🔊</div>
+      <h4>Memory Challenge — después de los sonidos</h4>
+      <p>Cierra el workbook. Habla en voz alta durante 1 minuto: ¿qué recuerdas del vídeo? Habitaciones, objetos, frases. ¡Sin mirar nada!</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 10 — COPIA A LA ESPAÑOLA + FRASES
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-terra">🇪🇸</div>
+    <div>
+      <div class="section-num">Bloque 10</div>
+      <div class="section-title">Copia a la española — mis 5 frases</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(10,this)">+10 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="fragment-box">
+      <div class="fragment-label">💡 Frases del vídeo para elegir</div>
+      <em>
+        1. "Siempre me gusta poner zapateros en las entradas porque pienso que es una forma muy buena de aprovechar el espacio."<br>
+        2. "Este sofá me encanta porque se saca y se hace como cama."<br>
+        3. "Pusimos esta estantería como de hierro del Ikea para dar un toque más industrial."<br>
+        4. "La cocina es un poquito pequeña, pero yo me gusta bastante."<br>
+        5. "Creo que hemos dejado todo súper bonito."
+      </em>
+    </div>
+
+    <table class="styled-table">
+      <thead><tr><th>La frase del vídeo</th><th>Repeticiones</th><th>¿Suena como ella?</th></tr></thead>
+      <tbody>
+        <tr><td><textarea placeholder="Escribe la frase..."></textarea></td><td><input type="text" placeholder="3x" style="width:55px;"></td><td><select><option>🎯</option><option>✅ Sí</option><option>🔶 Casi</option><option>❌ No</option></select></td></tr>
+        <tr><td><textarea placeholder="Escribe la frase..."></textarea></td><td><input type="text" placeholder="3x" style="width:55px;"></td><td><select><option>🎯</option><option>✅ Sí</option><option>🔶 Casi</option><option>❌ No</option></select></td></tr>
+        <tr><td><textarea placeholder="Escribe la frase..."></textarea></td><td><input type="text" placeholder="3x" style="width:55px;"></td><td><select><option>🎯</option><option>✅ Sí</option><option>🔶 Casi</option><option>❌ No</option></select></td></tr>
+        <tr><td><textarea placeholder="Escribe la frase..."></textarea></td><td><input type="text" placeholder="3x" style="width:55px;"></td><td><select><option>🎯</option><option>✅ Sí</option><option>🔶 Casi</option><option>❌ No</option></select></td></tr>
+        <tr><td><textarea placeholder="Escribe la frase..."></textarea></td><td><input type="text" placeholder="3x" style="width:55px;"></td><td><select><option>🎯</option><option>✅ Sí</option><option>🔶 Casi</option><option>❌ No</option></select></td></tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 11 — MI MINI HOUSE TOUR
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-sage">🏡</div>
+    <div>
+      <div class="section-num">Bloque 11</div>
+      <div class="section-title">Mi mini house tour</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(15,this)">+15 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>¡Tu turno!</strong> Graba tu propio house tour. Usa la estructura y las frases de ayuda. Habla mínimo 2 minutos. No leas — ¡habla!</div>
+
+    <div class="tour-structure">
+      <div class="tour-card"><div class="tc-icon">👋</div><h4>Presentación</h4><p>Hola, os voy a enseñar mi casa...</p></div>
+      <div class="tour-card"><div class="tc-icon">🚪</div><h4>Entrada</h4><p>Lo primero que veis es...</p></div>
+      <div class="tour-card"><div class="tc-icon">🛋️</div><h4>Salón</h4><p>En el salón tenemos...</p></div>
+      <div class="tour-card"><div class="tc-icon">🍳</div><h4>Cocina</h4><p>La cocina es... aquí hay...</p></div>
+      <div class="tour-card"><div class="tc-icon">🛏️</div><h4>Dormitorio</h4><p>Mi habitación es...</p></div>
+      <div class="tour-card" style="background:linear-gradient(135deg,var(--sage),#5A8A5E);"><div class="tc-icon">⭐</div><h4 style="color:white;">Parte favorita</h4><p style="color:rgba(255,255,255,.9);">Lo que más me gusta es...</p></div>
+    </div>
+
+    <div class="oral-task">
+      <div class="ot-icon">🎙️</div>
+      <h4>Tarea — graba tu tour en 3 pasos</h4>
+      <p><strong>Paso 1:</strong> Prepara mentalmente tu guión (2 min)<br>
+      <strong>Paso 2:</strong> Graba sin parar, sin releer (mínimo 90 segundos)<br>
+      <strong>Paso 3:</strong> Escúchate y anota 1 cosa que mejorar</p>
+      <div class="ot-hint">💡 ¡Usa las muletillas que aprendiste! "Pues...", "entonces...", "bueno..."</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 12 — RETO TIKTOK 🎥
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-dark">🎵</div>
+    <div>
+      <div class="section-num">Bloque 12 · El reto final</div>
+      <div class="section-title">Reto TikTok — elige tu modo 🎥</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(25,this)">+25 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div style="background:linear-gradient(135deg,#010101,#1a1a2e);border-radius:14px;padding:24px;text-align:center;color:white;margin-bottom:20px;">
+      <h3 style="font-family:'Fraunces',serif;font-size:1.3rem;margin-bottom:6px;">🎬 ¡Eres un blogger español!</h3>
+      <p style="opacity:.8;font-size:.88rem;">Elige tu personaje y graba 30–60 segundos mostrando tu habitación favorita.</p>
+    </div>
+
+    <h4 style="font-family:'Fraunces',serif;margin-bottom:12px;">🎭 Elige tu modo de grabación:</h4>
+    <div class="tiktok-modes">
+      <div class="tiktok-mode influencer" onclick="selectMode(this)">
+        <div class="mode-icon">💅</div>
+        <h4>Influencer</h4>
+        <p>Voz cálida, emotiva. "Me encanta este rinconcito porque..."</p>
+      </div>
+      <div class="tiktok-mode inmobiliaria" onclick="selectMode(this)">
+        <div class="mode-icon">🏢</div>
+        <h4>Inmobiliaria</h4>
+        <p>Voz profesional, precisa. "El piso cuenta con... metros cuadrados..."</p>
+      </div>
+      <div class="tiktok-mode youtuber" onclick="selectMode(this)">
+        <div class="mode-icon">📹</div>
+        <h4>Youtuber</h4>
+        <p>Voz energética, dinámica. "¡Hola chicos! Bienvenidos a mi piso..."</p>
+      </div>
+    </div>
+
+    <h4 style="font-family:'Fraunces',serif;margin:18px 0 12px;">✅ Checklist antes de grabar</h4>
+    <div id="tikTokChecklist">
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Elegí mi modo (influencer / inmobiliaria / youtuber)</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Hablé SOLO en español — sin palabras en ruso</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Usé <strong>hay</strong> al menos una vez</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Usé <strong>estar</strong> para indicar ubicación</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Usé mínimo 10 palabras de vocabulario de casa</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Usé al menos 2 muletillas (pues, entonces, bueno...)</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Intenté copiar la entonación de la española</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Grabé más de 30 segundos sin parar</span></div>
+      <div class="check-item" onclick="toggleCheck(this)"><div class="check-box">✓</div><span class="check-text">Sonreí durante la grabación 😊</span></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     БЛОК 13 — TABLA DE PROGRESO FINAL
+════════════════════════════════════ -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-icon icon-ochre">📈</div>
+    <div>
+      <div class="section-num">Bloque 13 · Final</div>
+      <div class="section-title">Mi tabla de progreso</div>
+    </div>
+    <div class="points-tag" onclick="addPoints(5,this)">+5 pts ⭐</div>
+  </div>
+  <div class="section-body">
+
+    <div class="tip-box"><strong>¡Felicidades!</strong> Completaste el workbook. Ahora valora tu progreso honestamente. Recuerda: el 1 hoy puede ser el 8 en 3 semanas. ¡El progreso existe!</div>
+
+    <div class="progress-row"><div class="progress-label">🔊 Pronunciación — ¿cómo suena mi español?</div><div class="progress-scale" id="p1"><button class="prog-btn" onclick="rateProgress(this,'p1')">1</button><button class="prog-btn" onclick="rateProgress(this,'p1')">2</button><button class="prog-btn" onclick="rateProgress(this,'p1')">3</button><button class="prog-btn" onclick="rateProgress(this,'p1')">4</button><button class="prog-btn" onclick="rateProgress(this,'p1')">5</button><button class="prog-btn" onclick="rateProgress(this,'p1')">6</button><button class="prog-btn" onclick="rateProgress(this,'p1')">7</button><button class="prog-btn" onclick="rateProgress(this,'p1')">8</button><button class="prog-btn" onclick="rateProgress(this,'p1')">9</button><button class="prog-btn" onclick="rateProgress(this,'p1')">10</button></div></div>
+    <div class="progress-row"><div class="progress-label">😊 Confianza al hablar</div><div class="progress-scale" id="p2"><button class="prog-btn" onclick="rateProgress(this,'p2')">1</button><button class="prog-btn" onclick="rateProgress(this,'p2')">2</button><button class="prog-btn" onclick="rateProgress(this,'p2')">3</button><button class="prog-btn" onclick="rateProgress(this,'p2')">4</button><button class="prog-btn" onclick="rateProgress(this,'p2')">5</button><button class="prog-btn" onclick="rateProgress(this,'p2')">6</button><button class="prog-btn" onclick="rateProgress(this,'p2')">7</button><button class="prog-btn" onclick="rateProgress(this,'p2')">8</button><button class="prog-btn" onclick="rateProgress(this,'p2')">9</button><button class="prog-btn" onclick="rateProgress(this,'p2')">10</button></div></div>
+    <div class="progress-row"><div class="progress-label">📚 Vocabulario de la casa</div><div class="progress-scale" id="p3"><button class="prog-btn" onclick="rateProgress(this,'p3')">1</button><button class="prog-btn" onclick="rateProgress(this,'p3')">2</button><button class="prog-btn" onclick="rateProgress(this,'p3')">3</button><button class="prog-btn" onclick="rateProgress(this,'p3')">4</button><button class="prog-btn" onclick="rateProgress(this,'p3')">5</button><button class="prog-btn" onclick="rateProgress(this,'p3')">6</button><button class="prog-btn" onclick="rateProgress(this,'p3')">7</button><button class="prog-btn" onclick="rateProgress(this,'p3')">8</button><button class="prog-btn" onclick="rateProgress(this,'p3')">9</button><button class="prog-btn" onclick="rateProgress(this,'p3')">10</button></div></div>
+    <div class="progress-row"><div class="progress-label">👂 Comprensión auditiva — ¿cuánto entendí?</div><div class="progress-scale" id="p4"><button class="prog-btn" onclick="rateProgress(this,'p4')">1</button><button class="prog-btn" onclick="rateProgress(this,'p4')">2</button><button class="prog-btn" onclick="rateProgress(this,'p4')">3</button><button class="prog-btn" onclick="rateProgress(this,'p4')">4</button><button class="prog-btn" onclick="rateProgress(this,'p4')">5</button><button class="prog-btn" onclick="rateProgress(this,'p4')">6</button><button class="prog-btn" onclick="rateProgress(this,'p4')">7</button><button class="prog-btn" onclick="rateProgress(this,'p4')">8</button><button class="prog-btn" onclick="rateProgress(this,'p4')">9</button><button class="prog-btn" onclick="rateProgress(this,'p4')">10</button></div></div>
+    <div class="progress-row"><div class="progress-label">🎵 Entonación — ¿sueno más española?</div><div class="progress-scale" id="p5"><button class="prog-btn" onclick="rateProgress(this,'p5')">1</button><button class="prog-btn" onclick="rateProgress(this,'p5')">2</button><button class="prog-btn" onclick="rateProgress(this,'p5')">3</button><button class="prog-btn" onclick="rateProgress(this,'p5')">4</button><button class="prog-btn" onclick="rateProgress(this,'p5')">5</button><button class="prog-btn" onclick="rateProgress(this,'p5')">6</button><button class="prog-btn" onclick="rateProgress(this,'p5')">7</button><button class="prog-btn" onclick="rateProgress(this,'p5')">8</button><button class="prog-btn" onclick="rateProgress(this,'p5')">9</button><button class="prog-btn" onclick="rateProgress(this,'p5')">10</button></div></div>
+
+    <label class="field-label">🎯 Mi objetivo para la próxima semana:</label>
+    <textarea class="answer-area" style="min-height:60px;" placeholder="La próxima semana quiero mejorar..."></textarea>
+
+    <!-- LEVELS -->
+    <h4 style="font-family:'Fraunces',serif;font-size:1rem;margin:20px 0 14px;">🏆 Sistema de niveles</h4>
+    <div class="levels-row">
+      <div class="level-card lc-bronze"><div class="lc-icon">🥉</div><h4>Explorador</h4><div class="lc-pts">0–50 pts</div></div>
+      <div class="level-card lc-silver"><div class="lc-icon">🥈</div><h4>Creador</h4><div class="lc-pts">51–100 pts</div></div>
+      <div class="level-card lc-gold"><div class="lc-icon">🥇</div><h4>House Tour Master</h4><div class="lc-pts">101–150 pts</div></div>
+      <div class="level-card lc-crown"><div class="lc-icon">👑</div><h4>Influencer Español</h4><div class="lc-pts">151+ pts</div></div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--terracotta),#8B3A1F);border-radius:16px;padding:28px;text-align:center;color:white;margin-top:24px;">
+      <div style="font-size:2.8rem;margin-bottom:10px;">🎉</div>
+      <h3 style="font-family:'Fraunces',serif;font-size:1.5rem;margin-bottom:8px;">¡Enhorabuena!</h3>
+      <p style="opacity:.9;max-width:480px;margin:0 auto;font-size:.93rem;">Cada vez que practicas, tu español mejora. No te compares con ayer — compárate con quien eras hace un mes. <strong>¡Tú puedes hablar español!</strong></p>
+      <div style="margin-top:14px;font-size:1.5rem;">🇪🇸 ¡Hasta la próxima!</div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+// ── SCORE SYSTEM ──
+let totalPts = 0;
+const levels = [
+  [0,'🥉 Explorador español'],
+  [51,'🥈 Creador de contenido'],
+  [101,'🥇 House Tour Master'],
+  [151,'👑 Influencer español']
+];
+function addPoints(n, btn) {
+  if (btn.dataset.used) return;
+  btn.dataset.used = '1';
+  totalPts += n;
+  document.getElementById('totalScore').textContent = totalPts;
+  btn.textContent = '✅ +' + n;
+  btn.style.background = 'linear-gradient(135deg,var(--sage),#5A8A5E)';
+  updateLevel();
+}
+function updateLevel() {
+  let lv = levels[0][1];
+  for (const [pts,name] of levels) { if (totalPts >= pts) lv = name; }
+  document.getElementById('levelBadge').textContent = lv;
+}
+
+// ── WORD BANK ──
+function toggleWord(el) {
+  if (el.classList.contains('new-word')) { el.classList.remove('new-word'); }
+  else if (el.classList.contains('known')) { el.classList.remove('known'); el.classList.add('new-word'); }
+  else { el.classList.add('known'); }
+}
+
+// ── BINGO ──
+function bingoClik(el) {
+  const cnt = el.querySelector('.bingo-count');
+  let n = parseInt(cnt.dataset.count || 0) + 1;
+  cnt.dataset.count = n;
+  cnt.textContent = n;
+  el.classList.add('hit');
+}
+
+// ── MULETILLAS COUNTER ──
+function changeCount(btn, delta) {
+  const row = btn.parentElement;
+  const val = row.querySelector('.counter-val');
+  let n = Math.max(0, parseInt(val.textContent) + delta);
+  val.textContent = n;
+}
+
+// ── STAR RATINGS ──
+function rateStar(el) {
+  const group = el.parentElement;
+  const stars = group.querySelectorAll('.star');
+  const idx = Array.from(stars).indexOf(el);
+  stars.forEach((s, i) => s.classList.toggle('active', i <= idx));
+}
+
+// ── PROGRESS ──
+function rateProgress(el, gId) {
+  const g = document.getElementById(gId);
+  const btns = g.querySelectorAll('.prog-btn');
+  const idx = Array.from(btns).indexOf(el);
+  btns.forEach((b, i) => b.classList.toggle('active', i <= idx));
+}
+
+// ── CHECKLIST ──
+function toggleCheck(el) { el.classList.toggle('checked'); }
+
+// ── TIKTOK MODES ──
+function selectMode(el) {
+  document.querySelectorAll('.tiktok-mode').forEach(m => m.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+// ── SPEED CHALLENGE ──
+let speedInterval = null;
+function startSpeed() {
+  if (speedInterval) { clearInterval(speedInterval); }
+  let t = 30;
+  document.getElementById('speedTimer').textContent = t;
+  const btn = document.querySelector('.speed-btn');
+  btn.textContent = '⏳ En marcha...';
+  btn.disabled = true;
+  speedInterval = setInterval(() => {
+    t--;
+    document.getElementById('speedTimer').textContent = t;
+    if (t <= 0) {
+      clearInterval(speedInterval);
+      document.getElementById('speedTimer').textContent = '🎉';
+      btn.textContent = '⚡ Iniciar de nuevo';
+            btn.disabled = false;
+    }
+  }, 1000);
+}
+</script>
+
+</body>
+</html>
